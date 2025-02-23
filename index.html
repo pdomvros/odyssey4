@@ -1,1 +1,162 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ραψωδία δ: Τὰ ἐν Λακεδαίμονι</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: black;
+            color: white;
+        }
+        h1 {
+            color: gold;
+        }
+        .author {
+            font-size: 14px;
+            color: white;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            gap: 10px;
+        }
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: gold;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        button.small {
+            font-size: 12px;
+            padding: 5px 10px;
+            width: 120px;
+            margin-top: 8px;
+            background-color: silver;
+        }
+        button:hover {
+            background-color: #c9a200;
+        }
+        .container {
+            position: relative;
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            height: 80vh;
+            display: none;
+        }
+        .scene {
+            display: none;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: black;
+            color: white;
+            padding: 20px;
+            border: 2px solid gold;
+            border-radius: 10px;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            z-index: 1000;
+            width: 300px;
+            text-align: center;
+        }
+        .popup button {
+            margin-top: 10px;
+            background-color: gold;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="author">Δημιουργία: Παναγιώτης Δόμβρος 2025 (CC BY-NC)</div>
+    <h1>Ραψωδία δ: Τὰ ἐν Λακεδαίμονι</h1>
+    
+    <div class="controls">
+        <div class="button-group">
+            <button onclick="showScene(11)">🏛 Άφιξη στη Σπάρτη</button>
+            <button class="small" onclick="openSummary(11)">📜 Περίληψη</button>
+        </div>
+        <div class="button-group">
+            <button onclick="showScene(12)">🍷 Συμπόσιο του Μενέλαου</button>
+            <button class="small" onclick="openSummary(12)">📜 Περίληψη</button>
+        </div>
+        <div class="button-group">
+            <button onclick="showScene(13)">🗣 Ο Μενέλαος μιλά για τον Οδυσσέα</button>
+            <button class="small" onclick="openSummary(13)">📜 Περίληψη</button>
+        </div>
+        <div class="button-group">
+            <button onclick="showScene(14)">⚔️ Όραμα του Τρωικού Πολέμου</button>
+            <button class="small" onclick="openSummary(14)">📜 Περίληψη</button>
+        </div>
+        <div class="button-group">
+            <button onclick="showScene(15)">⛵ Αναχώρηση του Τηλέμαχου</button>
+            <button class="small" onclick="openSummary(15)">📜 Περίληψη</button>
+        </div>
+    </div>
+    
+    <div class="container" id="capture-area">
+        <img id="scene11" class="scene" src="scene11.png" alt="Άφιξη στη Σπάρτη">
+        <img id="scene12" class="scene" src="scene12.png" alt="Συμπόσιο του Μενέλαου">
+        <img id="scene13" class="scene" src="scene13.png" alt="Ο Μενέλαος μιλά για τον Οδυσσέα">
+        <img id="scene14" class="scene" src="scene14.png" alt="Όραμα του Τρωικού Πολέμου">
+        <img id="scene15" class="scene" src="scene15.png" alt="Αναχώρηση του Τηλέμαχου">
+    </div>
+    
+    <div id="summaryPopup" class="popup">
+        <p id="summaryText"></p>
+        <button onclick="closeSummary()">Κλείσιμο ❌</button>
+    </div>
+    
+    <script>
+        function showScene(sceneNumber) {
+            const scenes = document.querySelectorAll('.scene');
+            scenes.forEach(scene => scene.style.display = 'none');
+            document.getElementById(`scene${sceneNumber}`).style.display = 'block';
+            document.querySelector('.container').style.display = 'block';
+        }
+        
+        function openSummary(sceneNumber) {
+            let summaries = [
+                "Ο Τηλέμαχος φτάνει στη Σπάρτη και συναντά τον Μενέλαο.",
+                "Συμπόσιο στο παλάτι, όπου ο Μενέλαος και η Ελένη υποδέχονται τον Τηλέμαχο.",
+                "Ο Μενέλαος μιλά για τον Οδυσσέα και τη μοίρα του.",
+                "Όραμα του Τρωικού Πολέμου και των ηρώων του.",
+                "Ο Τηλέμαχος αναχωρεί για την Ιθάκη με νέες πληροφορίες."
+            ];
+            document.getElementById('summaryText').innerText = summaries[sceneNumber - 11];
+            document.getElementById('summaryPopup').style.display = 'block';
+        }
+
+        function closeSummary() {
+            document.getElementById('summaryPopup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
 
